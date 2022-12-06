@@ -14,7 +14,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 logging.getLogger('flask_cors').level = logging.DEBUG
 model_simi = SentenceTransformer('multi-qa-MiniLM-L6-cos-v1')
-model = tf.keras.models.load_model("classmodelnew")
+model = tf.keras.models.load_model("/home/bellam_pranav/classmodelnew")
 
 def getIndexing(query):
     coreidnp = model.predict([query])
