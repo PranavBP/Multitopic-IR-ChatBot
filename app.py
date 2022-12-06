@@ -1,5 +1,5 @@
 from chatterbot import ChatBot
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS, cross_origin
 import logging
 
@@ -18,6 +18,17 @@ def helloWorld():
 @cross_origin()
 def home():
     return render_template("index.html")
+
+@app.route('/inputQuery', methods=['POST'])
+@cross_origin()
+def getInput():
+    try:
+        data = request.get_json()
+        print(data["query"])
+        return "bouis played wewdkc"
+    except Exception as e:
+        print(e)
+        return "Bhai kya kar rha hai thu? :/"
 
 @app.route("/get")
 def get_bot_response():
