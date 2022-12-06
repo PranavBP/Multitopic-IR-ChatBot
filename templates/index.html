@@ -135,11 +135,11 @@
         search_url = 'http://34.130.215.206:8983/solr/P4/select?q=body:(' + inputQuery + ')&rows=20&wt=json'
         $.ajax({
           type: "POST",
-          url: "http://localhost:9999/inputQuery",
+          url: "http://34.130.215.206:9999/inputQuery",
           contentType: 'application/json;charset=UTF-8',
           data: JSON.stringify({query:inputQuery})
         }).done(function( o ) {
-           // do something
+           console.log(o);
         });
       }
       else {
