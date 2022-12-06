@@ -90,6 +90,8 @@
     const BOT_NAME = "ChatBot";
     const PERSON_NAME = "You";
     var z = "";
+    const extIP = '34.130.215.206'
+    var flag = 0;
 
     msgerForm.addEventListener("submit", event => {
       event.preventDefault();
@@ -131,16 +133,37 @@
       Array.prototype.forEach.call(checkboxes, function (el) {
         values.push(el.value);
       });
-      if (values.length == 0) {
-        search_url = 'http://34.130.215.206:8983/solr/P4/select?q=body:(' + inputQuery + ')&rows=20&wt=json'
-        $.ajax({
+
+      $.ajax({
           type: "POST",
-          url: "http://localhost:9999/inputQuery",
+          url: 'http://34.130.215.206:9999/inputQuery',
           contentType: 'application/json;charset=UTF-8',
           data: JSON.stringify({query:inputQuery})
         }).done(function( o ) {
-           // do something
+           if o == 'chitchat'{
+            flag = 0;
+           }
+            
+          else{
+            flag = 1;
+          }
+
         });
+
+      // if (values.length == 0) {
+      //   search_url = 'http://'+extIP+':8983/solr/P4/select?q=body:(' + inputQuery + ')&rows=20&wt=json'
+        
+      //   $.ajax({
+      //     type: "POST",
+      //     url: 'http://34.130.215.206:9999/inputQuery',
+      //     contentType: 'application/json;charset=UTF-8',
+      //     data: JSON.stringify({query:inputQuery})
+      //   }).done(function( o ) {
+      //      // do something
+      //   });
+      // }
+        if (flag == 0) {
+        search_url = 'http://'+extIP+':8983/solr/P4/select?q=body:(' + inputQuery + ')&rows=20&wt=json';
       }
       else {
         base_url = 'http://34.130.215.206:8983/solr/P4/select?fl=*%2Cscore&q=body:' + inputQuery;
