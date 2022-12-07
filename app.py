@@ -57,6 +57,7 @@ def getInput():
             query_embedding = model_simi.encode(data["query"])
             ret_embedding = model_simi.encode(retrieved)
             similarity = util.dot_score(query_embedding, ret_embedding)
+            print(similarity)
             simi = similarity.numpy()
             max_sim_index = np.argmax(simi)
             max_sim = np.amax(simi)
