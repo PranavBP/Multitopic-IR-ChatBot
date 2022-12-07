@@ -67,14 +67,20 @@ def getInput():
         else:
             search_url = 'http://34.130.215.206:8983/solr/chit-chat/select?q=query:(' + data["query"] + ')&rows=20&wt=json'
             search_url = search_url.replace(" ", "%20")
+            print(search_url)
             d = urllib.request.urlopen(search_url)
             docs = json.load(d)['response']['docs']
             retrieved = []
             for doc in docs:
                 retrieved.append(doc['reply'])
+            ret = []
+            for doc in retrieved:
+                ret.append(doc[0])
+            print(ret)
             query_embedding = model_simi.encode(data["query"])
-            ret_embedding = model_simi.encode(retrieved)
+            ret_embedding = model_simi.encode(ret)
             similarity = util.dot_score(query_embedding, ret_embedding)
+            print(similarity)
             simi = similarity.numpy()
             max_sim_index = np.argmax(simi)
             max_sim = np.amax(simi)
@@ -82,6 +88,7 @@ def getInput():
             result = top_reply
         return result
     except Exception as e:
+        print(e)
         return "Sorry I did not understand!"
 
 @app.route("/get")
