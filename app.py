@@ -32,22 +32,6 @@ def getIndexing(query):
 
     return core
 
-def execute(query, retrieved_docs):
-    retrieved = []
-    for doc in retrieved_docs:
-        retrieved.append(doc['body'])
-    query_embedding = model_simi.encode(query)
-    print("111111")
-    ret_embedding = model_simi.encode(retrieved)
-    similarity = util.dot_score(query_embedding, ret_embedding)
-    print("222222222222")
-    simi = similarity.numpy()
-    max_sim_index = np.argmax(simi)
-    max_sim = np.amax(simi)
-    print("3333333333333")
-    top_reply = retrieved[max_sim_index]
-    return top_reply
-
 @app.route("/")
 def helloWorld():
   return "Hello, Please naviagte to /chatbot ... Thanks!"
@@ -67,7 +51,17 @@ def getInput():
             search_url = 'http://34.130.215.206:8983/solr/P4/select?q=body:(' + data["query"] + ')&rows=20&wt=json';
             data = urllib.request.urlopen(search_url);
             docs = json.load(data)['response']['docs']
-            result = execute(data["query"], docs)
+            retrieved = []
+            for doc in docs:
+                retrieved.append(doc['body'])
+            query_embedding = model_simi.encode(query)
+            ret_embedding = model_simi.encode(retrieved)
+            similarity = util.dot_score(query_embedding, ret_embedding)
+            simi = similarity.numpy()
+            max_sim_index = np.argmax(simi)
+            max_sim = np.amax(simi)
+            top_reply = retrieved[max_sim_index]
+            result = top_reply
             print(result)
         return result
     except Exception as e:
