@@ -140,37 +140,25 @@
           contentType: 'application/json;charset=UTF-8',
           data: JSON.stringify({query:inputQuery})
         }).done(function( o ) {
-           if (o == "chitchat") {
-            flag = 0;
-           }
-            
-          else{
-            flag = 1;
-          }
-
+           // karo kuch to
         });
-        if (flag == 0) {
-        search_url = 'http://'+extIP+':8983/solr/P4/select?q=body:(' + inputQuery + ')&rows=20&wt=json';
-      }
-      else {
-        base_url = 'http://34.130.215.206:8983/solr/P4/select?fl=*%2Cscore&q=body:' + inputQuery;
-        for (var x = 0; x < values.length; x++) {
-          base_url = base_url + '%20or%20topic:' + values[x];
-        }
-        search_url = base_url + '&rows=20&wt=json';
-      }
+        // base_url = 'http://34.130.215.206:8983/solr/P4/select?fl=*%2Cscore&q=body:' + inputQuery;
+        // for (var x = 0; x < values.length; x++) {
+        //   base_url = base_url + '%20or%20topic:' + values[x];
+        // }
+        // search_url = base_url + '&rows=20&wt=json';
 
-      jQuery.ajax({
-        url: search_url,
-        success: function (json) {
-          console.log(json.response);
-          z = JSON.stringify(json.response.docs[0].body);
-          console.log(JSON.stringify(json.response.docs.body));
-        }
-      });
+      // jQuery.ajax({
+      //   url: search_url,
+      //   success: function (json) {
+      //     console.log(json.response);
+      //     z = JSON.stringify(json.response.docs[0].body);
+      //     console.log(JSON.stringify(json.response.docs));
+      //   }
+      // });
 
       $.get("/get", { msg: rawText }).done(function (data) {
-        msgText = z;
+        msgText = "yamma";
         msgText = msgText.slice(1, msgText.length - 1);
         appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
       });

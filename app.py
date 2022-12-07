@@ -1,6 +1,8 @@
 from chatterbot import ChatBot
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS, cross_origin
+import urllib
+import json
 import logging
 import tensorflow as tf
 import tensorflow_text as text
@@ -71,11 +73,15 @@ def getInput():
     try:
         data = request.get_json()
         index = getIndexing(data["query"])
-        print(index)
+        if index == 'chitchat':
+            search_url = 'http://'+extIP+':8983/solr/P4/select?q=body:(' + data["query"] + ')&rows=20&wt=json';
+            data = urllib.request.urlopen(search_url);
+            docs = json.load(data)['response']['docs']
+            print(docs)
         return index
     except Exception as e:
         print(e)
-        return "Bhai kya kar rha hai thu? :/"
+        return "ERROR!!!"
 
 @app.route("/get")
 def get_bot_response():
