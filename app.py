@@ -45,7 +45,7 @@ def getInput():
         data = request.get_json()
         index = getIndexing(data["query"])
         if index == 'chitchat':
-            search_url = 'http://34.130.215.206:8983/solr/chit-chat/select?q=body:(' + data["query"] + ')&rows=20&wt=json'
+            search_url = 'http://34.130.215.206:8983/solr/P4/select?q=body:(' + data["query"] + ')&rows=20&wt=json'
             search_url = search_url.replace(" ", "%20")
             d = urllib.request.urlopen(search_url)
             docs = json.load(d)['response']['docs']
