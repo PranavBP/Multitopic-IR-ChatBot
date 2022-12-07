@@ -52,6 +52,8 @@ def getInput():
             retrieved = []
             for doc in docs:
                 retrieved.append(doc['body'])
+            if len(retrieved) == 0:
+                return "Sorry I did not understand!"
             query_embedding = model_simi.encode(data["query"])
             ret_embedding = model_simi.encode(retrieved)
             similarity = util.dot_score(query_embedding, ret_embedding)
