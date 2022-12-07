@@ -39,7 +39,6 @@ body {
   border-radius: 5px;
   background: var(--msger-bg);
   box-shadow: 0 15px 15px -5px rgba(0, 0, 0, 0.2);
-  align: left;
 }
 .topic-option{
   float: right;
