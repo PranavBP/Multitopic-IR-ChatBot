@@ -20,11 +20,8 @@ model = tf.keras.models.load_model("/home/bellam_pranav/classmodelnew")
 
 def getIndexing(query):
     coreidnp = model.predict([query])
-
-    print(query,coreidnp)
     coreidnp = np.where(coreidnp > 0.25, 1, 0)
     coreid = coreidnp[0][0]
-    print(coreid)
     if coreid == 0:
         core = 'chitchat'
     else:
@@ -49,22 +46,20 @@ def getInput():
         index = getIndexing(data["query"])
         if index == 'chitchat':
             search_url = 'http://34.130.215.206:8983/solr/P4/select?q=body:(' + data["query"] + ')&rows=20&wt=json';
-            data = urllib.request.urlopen(search_url);
-            docs = json.load(data)['response']['docs']
+            d = urllib.request.urlopen(search_url);
+            docs = json.load(d)['response']['docs']
             retrieved = []
             for doc in docs:
                 retrieved.append(doc['body'])
             query_embedding = model_simi.encode(data["query"])
             ret_embedding = model_simi.encode(retrieved)
             similarity = util.dot_score(query_embedding, ret_embedding)
-            print(similarity)
             simi = similarity.numpy()
             max_sim_index = np.argmax(simi)
             max_sim = np.amax(simi)
             top_reply = retrieved[max_sim_index]
             result = top_reply
-            print(result)
-        return result
+            return result
     except Exception as e:
         print(e)
         return "ERROR!!!"
