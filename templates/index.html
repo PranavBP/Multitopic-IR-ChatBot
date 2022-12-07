@@ -24,27 +24,27 @@
 
       <div class="d-flex justify-content-center">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="politics" name="politics" value="politics">
+          <input class="form-check-input" type="checkbox" id="politics" name="politics" value="Politics">
           <label class="form-check-label" for="Politics">Politics</label>
         </div>
         <p>&nbsp;&nbsp;&nbsp;</p>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="healthcare" name="healthcare" value="healthcare">
+          <input class="form-check-input" type="checkbox" id="healthcare" name="healthcare" value="Healthcare">
           <label class="form-check-label" for="Healthcare">Healthcare</label>
         </div>
         <p>&nbsp;&nbsp;&nbsp;</p>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="education" name="education" value="education">
+          <input class="form-check-input" type="checkbox" id="education" name="education" value="Education">
           <label class="form-check-label" for="Education">Education</label>
         </div>
         <p>&nbsp;&nbsp;&nbsp;</p>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="environment" name="environment" value="environment">
+          <input class="form-check-input" type="checkbox" id="environment" name="environment" value="Environment">
           <label class="form-check-label" for="Education">Environment</label>
         </div>
         <p>&nbsp;&nbsp;&nbsp;</p>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="technology" name="technology" value="technology">
+          <input class="form-check-input" type="checkbox" id="technology" name="technology" value="Technology">
           <label class="form-check-label" for="Education">Technology</label>
         </div>
       </div>
@@ -126,8 +126,9 @@
     function botResponse(rawText) {
 
       // Bot Response
-      var checkboxes = document.querySelectorAll('input[name="topic-choice"]:checked');
+      var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
       topics = [];
+      console.log(checkboxes.length)
       Array.prototype.forEach.call(checkboxes, function (el) {
         topics.push(el.value);
       });

@@ -45,12 +45,14 @@ def getInput():
         data = request.get_json()
         index = getIndexing(data["query"])
         topic_list = data["list_of_topics"]
+        print(topic_list)
         if index == 'reddit':
-            base_url = 'http://34.130.215.206:8983/solr/P4/select?q=body:(' + data["query"]
-            for i in rang(len(topic_list)):
-                base_url = base_url + '%20or%20topic:' + topic_list[i]
-            search_url = base_url + '&rows=20&wt=json'
+            base_url = 'http://34.130.215.206:8983/solr/P4/select?q=body%3A(' + data["query"] + ')'
+            for i in range(len(topic_list)):
+                base_url = base_url + '%20topic%3A'+topic_list[i]+'%20'
+            search_url = base_url + '&q.op=AND&rows=20&wt=json'
             search_url = search_url.replace(" ", "%20")
+            print(search_url)
             d = urllib.request.urlopen(search_url)
             docs = json.load(d)['response']['docs']
             retrieved = []
