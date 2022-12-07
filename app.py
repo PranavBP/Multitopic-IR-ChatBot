@@ -51,7 +51,7 @@ def getInput():
             docs = json.load(d)['response']['docs']
             retrieved = []
             for doc in docs:
-                retrieved.append(doc['body'])
+                retrieved.append(doc['reply'])
 
             query_embedding = model_simi.encode(data["query"])
             ret_embedding = model_simi.encode(retrieved)
@@ -61,6 +61,8 @@ def getInput():
             max_sim = np.amax(simi)
             top_reply = retrieved[max_sim_index]
             result = top_reply
+            print(result)
+            print('after res')
             if result is None:
                 return "Sorry I did not understand!"
             return result
