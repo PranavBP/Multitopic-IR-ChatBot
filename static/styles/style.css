@@ -40,6 +40,19 @@ body {
   background: var(--msger-bg);
   box-shadow: 0 15px 15px -5px rgba(0, 0, 0, 0.2);
 }
+
+.viz {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  padding: 10px 10px 10px 10px;
+}
+
 .topic-option{
   float: right;
 }
