@@ -49,11 +49,12 @@ def getInput():
             search_url = search_url.replace(" ", "%20")
             d = urllib.request.urlopen(search_url)
             docs = json.load(d)['response']['docs']
+            if len(docs) == 0:
+                return "Sorry I did not understand!"
             retrieved = []
             for doc in docs:
                 retrieved.append(doc['body'])
-            if len(retrieved) == 0:
-                return "Sorry I did not understand!"
+
             query_embedding = model_simi.encode(data["query"])
             ret_embedding = model_simi.encode(retrieved)
             similarity = util.dot_score(query_embedding, ret_embedding)
