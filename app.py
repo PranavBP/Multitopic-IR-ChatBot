@@ -52,7 +52,6 @@ def getInput():
             retrieved = []
             for doc in docs:
                 retrieved.append(doc['body'])
-
             query_embedding = model_simi.encode(data["query"])
             ret_embedding = model_simi.encode(retrieved)
             similarity = util.dot_score(query_embedding, ret_embedding)
@@ -63,7 +62,8 @@ def getInput():
             result = top_reply
             return result
     except Exception as e:
-        return "Sorry I did not understand!"
+        print(e)
+        return "ERROR!!!"
 
 @app.route("/get")
 def get_bot_response():
