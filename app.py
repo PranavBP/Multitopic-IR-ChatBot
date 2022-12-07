@@ -37,14 +37,14 @@ def execute(query, retrieved_docs):
     for doc in retrieved_docs:
         retrieved.append(doc['body'])
     query_embedding = model_simi.encode(query)
-    
+    print("111111")
     ret_embedding = model_simi.encode(retrieved)
     similarity = util.dot_score(query_embedding, ret_embedding)
-
+    print("222222222222")
     simi = similarity.numpy()
     max_sim_index = np.argmax(simi)
     max_sim = np.amax(simi)
-
+    print("3333333333333")
     top_reply = retrieved[max_sim_index]
     return top_reply
 
