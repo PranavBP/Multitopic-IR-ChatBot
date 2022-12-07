@@ -61,14 +61,9 @@ def getInput():
             max_sim = np.amax(simi)
             top_reply = retrieved[max_sim_index]
             result = top_reply
-            print(result)
-            print('after res')
-            if result is None:
-                return "Sorry I did not understand!"
             return result
     except Exception as e:
-        print(e)
-        return "ERROR!!!"
+        return "Sorry I did not understand!"
 
 @app.route("/get")
 def get_bot_response():
