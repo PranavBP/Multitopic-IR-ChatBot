@@ -140,7 +140,7 @@
           contentType: 'application/json;charset=UTF-8',
           data: JSON.stringify({query:inputQuery})
         }).done(function( o ) {
-           z = o;
+           console.log(o);
         });
         // base_url = 'http://34.130.215.206:8983/solr/P4/select?fl=*%2Cscore&q=body:' + inputQuery;
         // for (var x = 0; x < values.length; x++) {
@@ -158,7 +158,7 @@
       // });
 
       $.get("/get", { msg: rawText }).done(function (data) {
-        msgText = z;
+        msgText = "yessss";
         msgText = msgText.slice(1, msgText.length - 1);
         appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
       });
