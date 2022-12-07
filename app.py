@@ -44,8 +44,12 @@ def getInput():
     try:
         data = request.get_json()
         index = getIndexing(data["query"])
+        topic_list = data["list_of_topics"]
         if index == 'reddit':
-            search_url = 'http://34.130.215.206:8983/solr/P4/select?q=body:(' + data["query"] + ')&rows=20&wt=json'
+            base_url = 'http://34.130.215.206:8983/solr/P4/select?q=body:(' + data["query"]
+            for t in topic_list:
+                base_url = base_url + '%20or%20topic:' + t
+            search_url = base_url + '&rows=20&wt=json'
             search_url = search_url.replace(" ", "%20")
             d = urllib.request.urlopen(search_url)
             docs = json.load(d)['response']['docs']
@@ -60,7 +64,6 @@ def getInput():
             max_sim = np.amax(simi)
             top_reply = retrieved[max_sim_index]
             result = top_reply
-            return result
         else:
             search_url = 'http://34.130.215.206:8983/solr/chit-chat/select?q=query:(' + data["query"] + ')&rows=20&wt=json'
             search_url = search_url.replace(" ", "%20")
@@ -77,7 +80,7 @@ def getInput():
             max_sim = np.amax(simi)
             top_reply = retrieved[max_sim_index]
             result = top_reply
-            return result
+        return result
     except Exception as e:
         return "Sorry I did not understand!"
 

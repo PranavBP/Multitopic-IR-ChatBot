@@ -89,9 +89,7 @@
     const PERSON_IMG = "https://cdn-icons-png.flaticon.com/512/1077/1077114.png";
     const BOT_NAME = "ChatBot";
     const PERSON_NAME = "You";
-    var z = "";
     const extIP = '34.130.215.206'
-    var flag = 0;
 
     msgerForm.addEventListener("submit", event => {
       event.preventDefault();
@@ -129,16 +127,16 @@
 
       // Bot Response
       var checkboxes = document.querySelectorAll('input[name="topic-choice"]:checked');
-      values = [];
+      topics = [];
       Array.prototype.forEach.call(checkboxes, function (el) {
-        values.push(el.value);
+        topics.push(el.value);
       });
 
       $.ajax({
           type: "POST",
           url: 'http://34.130.215.206:9999/inputQuery',
           contentType: 'application/json;charset=UTF-8',
-          data: JSON.stringify({query:inputQuery})
+          data: JSON.stringify({query:inputQuery, list_of_topics:topics})
         }).done(function( o ) {
            appendMessage(BOT_NAME, BOT_IMG, "left", o);
         });
