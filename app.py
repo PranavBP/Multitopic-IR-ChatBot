@@ -32,19 +32,10 @@ def getIndexing(query):
 
     return core
 
-def execute(query):
-    coreidnp = model.predict([query])
-
-    print(query,coreidnp)
-    coreidnp = np.where(coreidnp > 0.25, 1, 0)
-    coreid = coreidnp[0][0]
-    print(coreid)
-    if coreid == 0:
-        core = 'chitchat'
-    else:
-        core = 'reddit'
-
-    retrieved = ['third wave of covid?','vaccine for covid are back is stock?']
+def execute(query, retrieved_docs):
+    retrieved = []
+    for doc in retrieved_docs:
+        retrieved.append(doc['body'])
     query_embedding = model_simi.encode(query)
     
     ret_embedding = model_simi.encode(retrieved)
@@ -53,7 +44,6 @@ def execute(query):
     simi = similarity.numpy()
     max_sim_index = np.argmax(simi)
     max_sim = np.amax(simi)
-    print("Similarity:", similarity, max_sim,max_sim_index)
 
     top_reply = retrieved[max_sim_index]
     return top_reply
@@ -74,11 +64,12 @@ def getInput():
         data = request.get_json()
         index = getIndexing(data["query"])
         if index == 'chitchat':
-            search_url = 'http://'+extIP+':8983/solr/P4/select?q=body:(' + data["query"] + ')&rows=20&wt=json';
+            search_url = 'http://34.130.215.206:8983/solr/P4/select?q=body:(' + data["query"] + ')&rows=20&wt=json';
             data = urllib.request.urlopen(search_url);
             docs = json.load(data)['response']['docs']
-            print(docs)
-        return index
+            result = execute(data["query"], docs)
+            print(result)
+        return result
     except Exception as e:
         print(e)
         return "ERROR!!!"
