@@ -51,7 +51,7 @@ def getInput():
             docs = json.load(d)['response']['docs']
             retrieved = []
             for doc in docs:
-                retrieved.append(doc['reply'])
+                retrieved.append(doc['body'])
 
             query_embedding = model_simi.encode(data["query"])
             ret_embedding = model_simi.encode(retrieved)
