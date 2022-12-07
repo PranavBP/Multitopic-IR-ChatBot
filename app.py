@@ -45,12 +45,10 @@ def getInput():
         data = request.get_json()
         index = getIndexing(data["query"])
         if index == 'chitchat':
-            search_url = 'http://34.130.215.206:8983/solr/P4/select?q=body:(' + data["query"] + ')&rows=20&wt=json'
+            search_url = 'http://34.130.215.206:8983/solr/chit-chat/select?q=body:(' + data["query"] + ')&rows=20&wt=json'
             search_url = search_url.replace(" ", "%20")
             d = urllib.request.urlopen(search_url)
             docs = json.load(d)['response']['docs']
-            if len(docs) == 0:
-                return "Sorry I did not understand!"
             retrieved = []
             for doc in docs:
                 retrieved.append(doc['body'])
@@ -63,6 +61,8 @@ def getInput():
             max_sim = np.amax(simi)
             top_reply = retrieved[max_sim_index]
             result = top_reply
+            if result is None:
+                return "Sorry I did not understand!"
             return result
     except Exception as e:
         print(e)
