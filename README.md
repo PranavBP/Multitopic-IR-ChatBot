@@ -50,4 +50,4 @@ Please find the link to live demo of the project - https://www.youtube.com/watch
 
 **Future Scope**
 
-\We have hereby completed this End to End IR Chat Bot. The performance can be improved by using a larger and diverse dataset so that the chat can be more coherent. We can try to integrate other models like LSTM to keep the context of the conversation and make the replies more logical.
+We have hereby completed this End to End IR Chat Bot. The performance can be improved by using a larger and diverse dataset so that the chat can be more coherent. We can try to integrate other models like LSTM to keep the context of the conversation and make the replies more logical.
